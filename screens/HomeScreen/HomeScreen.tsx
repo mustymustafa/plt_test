@@ -15,102 +15,54 @@ import {
 
 import { RootTabScreenProps } from "../../types";
 import { useDispatch, useSelector } from "react-redux";
-
-import { Product } from "../types";
-import { store, addItem, increaseItemQuantity, RootState } from "../../store";
+import { AntDesign } from "@expo/vector-icons";
+import { User } from "../types";
+import { store, RootState, removeItem } from "../../store";
+import AddUserModal from "../../components/Modals/AddUser";
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
-  const { basket } = useSelector((state: RootState) => state);
-  let INITIAL_QUANTITY = 1;
-
+  const { user } = useSelector((state: RootState) => state);
+  const user_data = user[0];
   const dispatch = useDispatch;
-  const [isLoading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
+
   const [selectedId, setSelectedId] = useState(0);
+  const [displayModal, setDisplayModal] = useState(false);
 
-  useEffect(() => {
-    let isActive = true;
-    if (isActive) {
-      getProducts();
-    }
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
-
-  const getProducts = async () => {
-    try {
-      setLoading(true);
-      const fetchProducts = await fetch(
-        "https://my-json-server.typicode.com/benirvingplt/products/products",
-        {
-          method: "GET",
-          headers: new Headers({
-            "Content-Type": "application/json",
-          }),
-        }
-      );
-      const value = await fetchProducts.json();
-      console.log("value", value);
-      if (fetchProducts.ok) {
-        setProducts(value);
-        setLoading(false);
-      } else {
-        setLoading(false);
-        alert("an error occurred");
-      }
-    } catch (error) {
-      //console.log(error.toString());
-    }
+  const viewUser = (user: User) => {
+    navigation.navigate("Details", { user: user });
   };
 
-  const addItemToBasket = (product: Product) => {
-    //Increase product quantity if product is already in basket. This is to prevent duplications
-
-    //Check the basket to see if item exists already
-    const itemIndex = basket.findIndex((item) => item.id === product.id);
-
-    if (itemIndex > -1) {
-      store.dispatch(increaseItemQuantity({ id: product.id }));
-      alert("Item updated");
-      return;
-    }
-    store.dispatch(addItem(product));
+  const displayAddUserModal = () => {
+    setDisplayModal(true);
   };
 
-  const renderItem = ({ item }: { item: Product }) => {
+  const removeUser = (username: string) => {
+    store.dispatch(removeItem(username));
+  };
+
+  const renderItem = ({ item }: { item: User }) => {
     return (
-      <Pressable
-        style={styles.products}
-        onPress={() =>
-          addItemToBasket({
-            id: item.id,
-            name: item.name,
-            colour: item.colour,
-            price: item.price,
-            img: item.img,
-            quantity: INITIAL_QUANTITY,
-          })
-        }
+      <View
+        style={{
+          borderWidth: 0.2,
+          borderRadius: 6,
+          padding: 10,
+          alignContent: "center",
+        }}
       >
-        <Image
-          source={{ uri: `${item.img}` }}
-          style={{ height: 300, width: 180 }}
+        <AntDesign
+          onPress={() => removeUser(item.username)}
+          name="close"
+          size={30}
+          style={{ top: "2%", alignSelf: "flex-end", paddingRight: 20 }}
         />
+        <Pressable onPress={() => viewUser(item)} style={styles.products}>
+          <Image
+            source={{ uri: `${item.image.trim()}` }}
+            style={{ height: 200, width: 160 }}
+          />
+        </Pressable>
         <View>
-          <Text
-            style={{
-              fontSize: 14,
-              paddingLeft: 15,
-              paddingTop: 5,
-              color: "black",
-              fontWeight: "bold",
-            }}
-          >
-            £{item.price}
-          </Text>
-
           <Text
             style={{
               fontSize: 14,
@@ -120,56 +72,56 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<"Home">) {
               fontWeight: "300",
             }}
           >
-            {item.name}
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 14,
-              paddingLeft: 15,
-              paddingTop: 10,
-
-              color: "black",
-            }}
-          >
-            Colour: {item.colour}
+            {item.username}, {item.age}
           </Text>
         </View>
-      </Pressable>
+      </View>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {isLoading ? (
-        <View style={{ padding: 20, alignItems: "center", top: "50%" }}>
-          <ActivityIndicator size="large" color="#000000" />
-        </View>
-      ) : (
-        <View style={{ top: 20 }}>
-          <View style={{ bottom: 20, height: 20, alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 14,
-                paddingLeft: 15,
-                padding: 5,
-                top: 10,
-                color: "black",
-                fontWeight: "300",
-              }}
-            >
-              {products.length} items found
-            </Text>
-          </View>
-          <FlatList
-            numColumns={2}
-            key={selectedId}
-            data={products}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      )}
+      <View style={{ top: -20 }}>
+        <View style={{ bottom: 20, height: 20, alignItems: "center" }}></View>
+        <FlatList
+          numColumns={2}
+          key={selectedId}
+          data={user_data}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+
+        <TouchableOpacity
+          onPress={displayAddUserModal}
+          style={{
+            backgroundColor: "purple",
+            position: "absolute",
+            width: 200,
+            height: 50,
+            borderRadius: 6,
+            alignItems: "center",
+            bottom: 30,
+            alignSelf: "center",
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 14,
+              padding: 15,
+              color: "white",
+            }}
+          >
+            Add
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <AddUserModal
+        shown={displayModal}
+        close={() => {
+          setDisplayModal(false);
+        }}
+      />
     </SafeAreaView>
   );
 }

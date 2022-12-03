@@ -1,11 +1,14 @@
-
-export  interface Product {
-  id: number;
-  name: string;
-  img: string;
-  colour: string;
-  price: number;
-  quantity: number;
+export interface User {
+  id?: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  maidenName?: string;
+  age: number;
+  image: string;
+  address: {
+    address: string;
+    postalCode: string;
+    state: string;
+  };
 }
-
-

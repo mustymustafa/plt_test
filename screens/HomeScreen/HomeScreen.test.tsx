@@ -1,28 +1,37 @@
-import { addItem, store } from "../../store";
+import React from "react";
+import { render } from "@testing-library/react-native";
 
-const product = {
-  colour: "Black",
+import HomeScreen from "./HomeScreen";
+import { addUser, store } from "../../store";
+
+const user = {
   id: 1,
-  img: "http://cdn-img.prettylittlething.com/9/0/a/a/90aa90903a135ee59594f47c7685aa7ef3046e44_cly8063_1.jpg?imwidth=1024",
-  name: "Black Sheet Strappy Textured Glitter Bodycon Dress",
-  price: 10,
+  username: "mustymustafa",
+  firstName: "musty",
+  lastName: "mustafa",
+  age: 24,
+  image: "https://robohash.org/facilisdignissimosdolore.png",
+  address: { address: "downtown", postalCode: "m25", state: "manny" },
 };
+
 
 describe("HomeScreen", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should successfully add the product to the basket", () => {
-    expect(store.dispatch(addItem(product))).toEqual({
+  it("should successfully add the user to the list", () => {
+    expect(store.dispatch(addUser(user))).toEqual({
       payload: {
-        colour: "Black",
         id: 1,
-        img: "http://cdn-img.prettylittlething.com/9/0/a/a/90aa90903a135ee59594f47c7685aa7ef3046e44_cly8063_1.jpg?imwidth=1024",
-        name: "Black Sheet Strappy Textured Glitter Bodycon Dress",
-        price: 10,
+        username: "mustymustafa",
+        firstName: "musty",
+        lastName: "mustafa",
+        age: 24,
+        image: "https://robohash.org/facilisdignissimosdolore.png",
+        address: { address: "downtown", postalCode: "m25", state: "manny" },
       },
-      type: "basket/addItem",
+      type: "user/addUser",
     });
   });
 });

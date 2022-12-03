@@ -1,4 +1,4 @@
-package com.musty.plt_test;
+package com.musty.catbyte_test;
 
 import android.os.Build;
 import android.os.Bundle;

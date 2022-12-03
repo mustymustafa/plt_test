@@ -132,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.musty.plt_test'
+        applicationId 'com.musty.catbyte_test'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

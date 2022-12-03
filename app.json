@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "plt_test",
-    "slug": "plt_test",
+    "name": "catbyte_test",
+    "slug": "catbyte_test",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,14 +20,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.musty.plt-test"
+      "bundleIdentifier": "com.musty.catbyte-test"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.musty.plt_test"
+      "package": "com.musty.catbyte_test"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

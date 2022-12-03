@@ -18,7 +18,8 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
-import BasketScreen from "../screens/BasketScreen/BasketScreen";
+import LoadingScreen from "../screens/Loading/Loading";
+import UserDetailsScreen from "../screens/UserDetailsScreen/UserDetailsScreen";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -51,9 +52,42 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="Loading"
+        component={LoadingScreen}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "CATBYTE",
+          headerLeft: () => null,
+          gestureEnabled: false,
+          headerBackVisible: false,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "purple" },
+        }}
+      />
+
+      <Stack.Screen
+        name="Details"
+        component={UserDetailsScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "",
+          headerLeft: () => null,
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
-        options={{ title: "PRETTYLITTLETHING" }}
+        options={{ title: "CATBYTE" }}
       />
     </Stack.Navigator>
   );
@@ -70,7 +104,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Loading"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
@@ -81,17 +115,8 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<"Home">) => ({
           headerShown: false,
           title: "Home",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         })}
-      />
-      <BottomTab.Screen
-        name="Basket"
-        component={BasketScreen}
-        options={{
-          headerShown: false,
-          title: "Basket",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
       />
     </BottomTab.Navigator>
   );

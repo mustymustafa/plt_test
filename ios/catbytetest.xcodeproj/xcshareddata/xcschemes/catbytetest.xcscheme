@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "plttest.app"
-               BlueprintName = "plttest"
-               ReferencedContainer = "container:plttest.xcodeproj">
+               BuildableName = "catbytetest.app"
+               BlueprintName = "catbytetest"
+               ReferencedContainer = "container:catbytetest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "plttestTests.xctest"
-               BlueprintName = "plttestTests"
-               ReferencedContainer = "container:plttest.xcodeproj">
+               BuildableName = "catbytetestTests.xctest"
+               BlueprintName = "catbytetestTests"
+               ReferencedContainer = "container:catbytetest.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "plttest.app"
-            BlueprintName = "plttest"
-            ReferencedContainer = "container:plttest.xcodeproj">
+            BuildableName = "catbytetest.app"
+            BlueprintName = "catbytetest"
+            ReferencedContainer = "container:catbytetest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "plttest.app"
-            BlueprintName = "plttest"
-            ReferencedContainer = "container:plttest.xcodeproj">
+            BuildableName = "catbytetest.app"
+            BlueprintName = "catbytetest"
+            ReferencedContainer = "container:catbytetest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
